@@ -35,7 +35,10 @@ class YCSBClientQueryMessage;
 class ycsb_request {
 public:
   ycsb_request() {}
-  ycsb_request(const ycsb_request& req) : acctype(req.acctype), key(req.key), value(req.value) { }
+  // #RAIN: 移除用户定义拷贝构造函数，使 ycsb_request 为 trivially copyable
+  // 原定义：ycsb_request(const ycsb_request& req) : acctype(...), key(...), value(...) {}
+  // 原因：gcc -Werror=class-memaccess 禁止对 non-trivially copyable 类型使用 memcpy
+  // 所有成员均为 POD，编译器生成的默认拷贝构造函数完全等价，无需显式定义
   void copy(ycsb_request * req) {
     this->acctype = req->acctype;
     this->key = req->key;

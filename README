@@ -1,6 +1,13 @@
 SETUP
 -----------------------------
 == Dependencies ==
+
+```
+apt install -y libboost-dev
+apt install -y libnanomsg-dev
+apt install -y libcurl4-openssl-dev
+```
+
 nanomsg (nanomsg.org)
 jemalloc (www.canonware.com/jemalloc)
 
@@ -35,10 +42,11 @@ DBMS BENCHMARK
   [4] A. Thomson et al, "Calvin: Fast Distributed Transactions for Partitioned Database Systems", SIGMOD 2012
 
   2. Three benchmarks are supported.
+
     2.1 YCSB[5]
-		2.2 TPCC[6]
-			Only Payment and New Order transactions are modeled.
-		2.2 Product-Parts-Supplier (PPS)
+    	2.2 TPCC[6]
+    		Only Payment and New Order transactions are modeled.
+    	2.2 Product-Parts-Supplier (PPS)
 
   [5] B. Cooper et al, "Benchmarking Cloud Serving Systems with YCSB", SoCC 201
   [6] http://www.tpc.org/tpcc/
@@ -68,15 +76,15 @@ dbms benchmark has the following parameters in the config file. Parameters with 
 
   THREAD_ALLOC	: per thread allocator.
   * MEM_PAD		: enable memory padding to avoid false sharing.
-  MEM_ALLIGN	: allocated blocks are alligned to MEM_ALLIGN bytes
+    MEM_ALLIGN	: allocated blocks are alligned to MEM_ALLIGN bytes
 
   * ROLL_BACK		: roll back the modifications if a transaction aborts.
 
   ENABLE_LATCH  : enable latching in btree index
   * CENTRAL_INDEX : centralized index structure
   * CENTRAL_MANAGER	: centralized lock/timestamp manager
-  INDEX_STRCT	: data structure for index.
-  BTREE_ORDER	: fanout of each B-tree node
+    INDEX_STRCT	: data structure for index.
+    BTREE_ORDER	: fanout of each B-tree node
 
   TS_TWR		: enable Thomas Write Rule (TWR) in TIMESTAMP
   HIS_RECYCLE_LEN	: in MVCC, history will be recycled if they are too long.

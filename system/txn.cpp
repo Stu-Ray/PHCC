@@ -1441,10 +1441,12 @@ RC TxnManager::get_row(row_t * row, access_t type, row_t *& row_rtn) {
 		if (!OCC_WAW_LOCK || type == RD) {
 			_min_commit_ts = _min_commit_ts > access->orig_wts ? _min_commit_ts : access->orig_wts;
 		} else {
-			if (rc == WAIT)
-						ATOM_ADD_FETCH(_num_lock_waits, 1);
-						if (rc == Abort || rc == WAIT)
-								return rc;
+			// #RAIN: 修复 misleading-indentation (-Werror)，加花括号明确 if 作用域
+			if (rc == WAIT) {
+				ATOM_ADD_FETCH(_num_lock_waits, 1);
+			}
+			if (rc == Abort || rc == WAIT)
+				return rc;
 		}
     INC_STATS(get_thd_id(), trans_get_row_time, get_sys_clock() - get_access_end_time);
     INC_STATS(get_thd_id(), trans_get_row_count, 1);
